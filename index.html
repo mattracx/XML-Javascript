@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it-IT">
+    <head>
+        <title>Catalogo automobili</title>
+        <script>
+            if(window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.open("GET", "automobili.xml", false);
+            xmlhttp.send();
+            xmlDoc = xmlhttp.responseXML;
+            x = xmlDoc.getElementsByTagName("auto");
+
+            function showInfo(i) {
+                modello = (x[i].getElementsByTagName("modello")[0].childNodes[0].nodeValue);
+                marca = (x[i].getElementsByTagName("marca")[0].childNodes[0].nodeValue);
+                anno = (x[i].getElementsByTagName("anno")[0].childNodes[0].nodeValue);
+                cc = (x[i].getElementsByTagName("cc")[0].childNodes[0].nodeValue);
+                alim = (x[i].getElementsByTagName("alim")[0].childNodes[0].nodeValue);
+                km = (x[i].getElementsByTagName("km")[0].childNodes[0].nodeValue);
+                prezzo = (x[i].getElementsByTagName("prezzo")[0].childNodes[0].nodeValue);
+                txtInfo = "Marca: <b>" + marca + "</b><br/>";
+                txtInfo += "Modello: <b>" + modello + "</b><br/>";
+                txtInfo += "Alimentazione: <b>" + alim + "</b><br/>";
+                txtInfo += "Anno: <b>" + anno + "</b><br/>";
+                txtInfo += "Kilometri: <b>" + km + "</b><br/>";
+                txtInfo += "Cilindrata: <b>" + cc + "cc</b><br/>";
+                txtInfo += "Prezzo: <b class='prezzo'>&euro;" + prezzo + "</b><br/>";
+                txtInfo += "<center><input id='chiudiInfo' type='button' value='Chiudi' onClick='chiudi();'></center>";
+                document.getElementById("info").innerHTML = txtInfo;
+                document.getElementById("info").style.display = "block";
+            }
+
+            function chiudi() {
+                document.getElementById("info").style.display = "none";
+            }
+        </script>
+        <style>
+            @font-face {
+                font-family: Roboto;
+                src: url(Roboto-Regular.ttf);
+            }
+            * { font-family: Roboto; }
+            body { background-color: #595959; }
+            fieldset { margin: 3% auto; max-width: 500px; text-align: center; }
+            fieldset legend { z-index: 1; color: #FFF; }
+            table { margin: 0 auto; background-color: #FFF; width: 350px; }
+            td { padding: 10px; }
+            #info {
+                display: none;
+                z-index: 2;
+                position: relative;
+                margin: 0 auto;
+                border: 1px solid #595959;
+                width: 250px;
+                padding: 30px;
+                background-color: #DDD;
+                font-size: 18px;
+            }
+            #chiudiInfo { margin: 15px auto; margin-bottom: -20px; border: none; height: 40px; text-align: center; padding: 10px; }
+            #copyright { margin-top: -50px; font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <fieldset>
+            <legend>Automobili</legend>
+            <script>
+                document.write("<table border='1'>");
+                document.write("<tr><th>Marca</th><th>Modello</th></tr>");
+                for(i = 0; i < x.length; i++) {
+                    document.write("<tr onClick='showInfo("+i+");'>");
+                    document.write("<td>");
+                    document.write((x[i].getElementsByTagName("marca")[0].childNodes[0].nodeValue));
+                    document.write("</td><td>");
+                    document.write((x[i].getElementsByTagName("modello")[0].childNodes[0].nodeValue));
+                    document.write("</td></tr>");
+                }
+                document.write("</table>");
+            </script>
+        </fieldset>
+        <footer><p id="copyright" align="center">Copyright &copy; 2015 - <b>Matteo Raciti</b></p></footer>
+        <div id="info">Fare click su un'auto per mostrare le informazioni</div>
+    </body>
+</html>
