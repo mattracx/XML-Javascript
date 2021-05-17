@@ -1,4 +1,5 @@
-# xml1
+# XML JavaScript
 XML Test
 
-Un esempio di un archivio XML integrato con javascript ed HTML.
+Progetto Scolastico:
+Un esempio di un archivio XML integrato con JavaScript ed HTML.
